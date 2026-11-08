@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Rifa de Natal - Natal Encantado 🎄</title>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
@@ -78,7 +78,6 @@
             color: var(--light-gold);
         }
         
-        /* Botão do Relatório (Estilo Árvore de Natal) */
         .btn-relatorio {
             width: 100%;
             background: linear-gradient(to right, var(--natal-dark-green), var(--natal-green));
@@ -132,7 +131,7 @@
             margin-bottom: 6px;
         }
         .vendedor-box select {
-            width: 85%;
+            width: 100%;
             padding: 8px 12px;
             font-weight: bold;
             border-radius: 8px;
@@ -141,6 +140,7 @@
             background: #fff;
             color: #222;
             outline: none;
+            box-sizing: border-box;
         }
         
         .grid-rifa {
@@ -168,6 +168,7 @@
             position: relative;
             box-shadow: 0 2px 4px rgba(0,0,0,0.03);
             color: #333;
+            box-sizing: border-box;
         }
         .numero-card:hover {
             border-color: var(--gold);
@@ -186,9 +187,9 @@
             white-space: nowrap;
             max-width: 92%;
             font-weight: 600;
+            text-align: center;
         }
         
-        /* Modais */
         .modal {
             display: none;
             position: fixed;
@@ -210,6 +211,7 @@
             text-align: center;
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
             border-top: 5px solid var(--natal-red);
+            box-sizing: border-box;
         }
         .modal-content h3 {
             margin-top: 0;
@@ -232,9 +234,8 @@
         }
         .btn-salvar { background: var(--natal-green); color: white; border: none; padding: 10px; border-radius: 8px; cursor: pointer; font-weight: bold; flex: 1; }
         .btn-cancelar { background: #e0e0e0; color: #444; border: none; padding: 10px; border-radius: 8px; cursor: pointer; font-weight: bold; flex: 1; }
-        .btn-liberar { background: #ffebee; color: var(--natal-red); border: 1px solid #ef9a9a; padding: 10px; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%; margin-top: 10px; }
+        .btn-liberar { background: #ffebee; color: var(--natal-red); border: 1px solid #ef9a9a; padding: 10px; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%; margin-top: 10px; box-sizing: border-box; }
 
-        /* Estilos do Relatório */
         .bloco-vendedor {
             background: #fdfbf7;
             border-left: 5px solid var(--natal-green);
@@ -257,6 +258,27 @@
         }
         .item-venda strong {
             color: var(--natal-green);
+        }
+
+        /* --- REGRAS DE RESPONSIVIDADE PARA CELULARES --- */
+        @media (max-width: 450px) {
+            body { padding: 5px; } /* Reduz a borda lateral da página inteira */
+            .container { 
+                padding: 12px; 
+                border-width: 3px; 
+                border-radius: 15px;
+            }
+            .header-banner { padding: 10px; }
+            h1 { font-size: 20px; } /* Adapta o título */
+            .subtitle { font-size: 12px; }
+            .btn-relatorio { font-size: 13px; padding: 10px; }
+            .stats-box { font-size: 11px; padding: 8px; flex-wrap: wrap; }
+            .vendedor-box { padding: 10px; }
+            .vendedor-box label { font-size: 13px; }
+            .vendedor-box select { font-size: 14px; padding: 6px 10px; }
+            .grid-rifa { gap: 4px; padding: 2px; } /* Espreme levemente as colunas */
+            .numero-card { font-size: 13px; border-width: 1px; border-radius: 6px; }
+            .numero-card .nome-mini { font-size: 7px; }
         }
     </style>
 </head>
@@ -386,9 +408,8 @@
         }
 
         function abrirModal(numero) {
-            // TOCA O SOM AQUI
             somSino.currentTime = 0;
-            somSino.play().catch(e => console.log("O navegador bloqueou o som antes da primeira interação."));
+            somSino.play().catch(e => console.log("Som bloqueado antes da interação."));
 
             numeroSelecionado = numero;
             document.getElementById('modalTitulo').innerText = `Número ${numero}`;
