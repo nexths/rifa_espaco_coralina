@@ -78,23 +78,6 @@
             color: var(--light-gold);
         }
         
-        .stats-box {
-            display: flex;
-            justify-content: space-around;
-            background: #faf6ef;
-            border-radius: 10px;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #e8ded0;
-            font-size: 13px;
-            font-weight: bold;
-            color: #444;
-        }
-        .stats-box span {
-            color: var(--natal-green);
-            font-size: 15px;
-        }
-
         /* Botão do Relatório (Estilo Árvore de Natal) */
         .btn-relatorio {
             width: 100%;
@@ -114,6 +97,23 @@
             transform: translateY(-2px);
             box-shadow: 0 6px 12px rgba(0,0,0,0.2);
             border-color: #ffe082;
+        }
+
+        .stats-box {
+            display: flex;
+            justify-content: space-around;
+            background: #faf6ef;
+            border-radius: 10px;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #e8ded0;
+            font-size: 13px;
+            font-weight: bold;
+            color: #444;
+        }
+        .stats-box span {
+            color: var(--natal-green);
+            font-size: 15px;
         }
         
         .vendedor-box {
@@ -268,13 +268,12 @@
             <div class="subtitle">✨ Garanta sua cota da sorte ✨</div>
         </div>
 
+        <button class="btn-relatorio" onclick="abrirRelatorio()">🌲 Ver Relatório de Vendas 🌲</button>
+
         <div class="stats-box">
             <div>Vendidos: <span id="qtdVendidos">0</span>/100</div>
             <div>Disponíveis: <span id="qtdDisponiveis">100</span></div>
         </div>
-
-        <!-- Botão de Relatório Atualizado -->
-        <button class="btn-relatorio" onclick="abrirRelatorio()">🌲 Ver Relatório de Vendas 🌲</button>
 
         <div class="vendedor-box">
             <label>👤 Quem está registrando a venda?</label>
@@ -324,6 +323,10 @@
             }
         }
         criarNeve();
+
+        // 🔔 ÁUDIO DO SINO MÁGICO DE NATAL 🔔
+        const somSino = new Audio('https://actions.google.com/sounds/v1/cartoon/magic_chime.ogg');
+        somSino.volume = 0.5;
 
         const SUPABASE_URL = "https://ughhpvdrsxpuouhqwakn.supabase.co";
         const SUPABASE_ANON_KEY = "sb_publishable_nazmiw4UKp6QRBpsfMVowQ_neP7X7Th";
@@ -383,6 +386,10 @@
         }
 
         function abrirModal(numero) {
+            // TOCA O SOM AQUI
+            somSino.currentTime = 0;
+            somSino.play().catch(e => console.log("O navegador bloqueou o som antes da primeira interação."));
+
             numeroSelecionado = numero;
             document.getElementById('modalTitulo').innerText = `Número ${numero}`;
             const info = dadosRifa[numero];
