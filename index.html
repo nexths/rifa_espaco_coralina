@@ -8,15 +8,19 @@
     <style>
         :root {
             --natal-red: #990000;
-            --natal-dark-red: #660000;
+            --natal-light-red: #b32d2d;
             --natal-green: #1b4d3e;
+            --natal-dark-green: #0d261f;
             --gold: #d4af37;
+            --light-gold: #f7e3b5;
             --bg-body: #f7f4ee;
             --card-bg: #ffffff;
         }
+        
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #f7f4ee 0%, #ece5d8 100%);
+            /* Fundo verde elegante para contrastar com a rifa */
+            background: linear-gradient(135deg, var(--natal-dark-green) 0%, var(--natal-green) 100%);
             color: #333;
             margin: 0;
             padding: 15px;
@@ -24,7 +28,23 @@
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
+            overflow-x: hidden;
         }
+
+        /* Efeito de neve sutil no fundo */
+        .snow-flake {
+            position: fixed;
+            color: rgba(255, 255, 255, 0.4);
+            user-select: none;
+            pointer-events: none;
+            z-index: 1;
+            animation: fall linear infinite;
+        }
+        @keyframes fall {
+            0% { transform: translateY(-10vh) translateX(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(110vh) translateX(20px) rotate(360deg); opacity: 0.3; }
+        }
+
         .container {
             width: 100%;
             max-width: 550px;
@@ -32,27 +52,35 @@
             border: 4px solid var(--gold);
             border-radius: 20px;
             padding: 20px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
             box-sizing: border-box;
             margin-bottom: 20px;
+            position: relative;
+            z-index: 10; /* Mantém a rifa acima da neve */
         }
+        
+        /* Cabeçalho Temático */
         .header-banner {
             text-align: center;
-            border-bottom: 2px dashed #e0d5be;
-            padding-bottom: 12px;
-            margin-bottom: 15px;
+            background: linear-gradient(to right, var(--natal-red), var(--natal-light-red));
+            padding: 15px;
+            border-radius: 12px;
+            border-bottom: 3px solid var(--gold);
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
         h1 {
-            color: var(--natal-red);
+            color: #ffffff;
             font-size: 26px;
             margin: 0 0 5px 0;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
         }
         .subtitle {
             font-size: 14px;
             font-weight: 600;
-            color: #555;
+            color: var(--light-gold);
         }
+        
         /* Estatísticas rápidas */
         .stats-box {
             display: flex;
@@ -68,7 +96,9 @@
         }
         .stats-box span {
             color: var(--natal-green);
+            font-size: 15px;
         }
+        
         .vendedor-box {
             background: linear-gradient(to right, #fdfbf7, #f4ecd8);
             padding: 12px;
@@ -79,7 +109,7 @@
         }
         .vendedor-box label {
             font-weight: bold;
-            color: var(--natal-dark-red);
+            color: var(--natal-red);
             font-size: 14px;
             display: block;
             margin-bottom: 6px;
@@ -95,6 +125,7 @@
             color: #222;
             outline: none;
         }
+        
         .grid-rifa {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
@@ -103,6 +134,7 @@
             overflow-y: auto;
             padding: 4px;
         }
+        
         .numero-card {
             background: #fff;
             border: 2px solid #e2dac9;
@@ -118,6 +150,7 @@
             transition: all 0.2s ease;
             position: relative;
             box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+            color: #333;
         }
         .numero-card:hover {
             border-color: var(--gold);
@@ -144,13 +177,14 @@
             max-width: 92%;
             font-weight: 600;
         }
+        
         /* Modal Estilizado */
         .modal {
             display: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.6);
-            backdrop-filter: blur(2px);
+            backdrop-filter: blur(3px);
             justify-content: center;
             align-items: center;
             z-index: 999;
@@ -162,12 +196,12 @@
             width: 85%;
             max-width: 330px;
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
             border-top: 5px solid var(--natal-red);
         }
         .modal-content h3 {
             margin-top: 0;
-            color: var(--natal-dark-red);
+            color: var(--natal-red);
             font-size: 20px;
         }
         .modal-content input {
@@ -224,19 +258,19 @@
 <body>
 
     <div class="container">
+        <!-- Cabeçalho Temático -->
         <div class="header-banner">
             <h1>🎄 Natal Encantado 🎅</h1>
-            <div class="subtitle">Escolha sua cota (1 a 100) e participe!</div>
+            <div class="subtitle">✨ Garanta sua cota da sorte ✨</div>
         </div>
 
-        <!-- Estatísticas automáticas -->
         <div class="stats-box">
             <div>Vendidos: <span id="qtdVendidos">0</span>/100</div>
             <div>Disponíveis: <span id="qtdDisponiveis">100</span></div>
         </div>
 
         <div class="vendedor-box">
-            <label>👤 Quem está registrando?</label>
+            <label>👤 Quem está registrando a venda?</label>
             <select id="vendedorAtual">
                 <option value="Angélica">Angélica</option>
                 <option value="Nadine">Nadine</option>
@@ -245,7 +279,6 @@
             </select>
         </div>
 
-        <!-- Grade de Números -->
         <div class="grid-rifa" id="gridRifa"></div>
     </div>
 
@@ -264,8 +297,25 @@
     </div>
 
     <script>
+        // --- ANIMAÇÃO DE NEVE ---
+        function criarNeve() {
+            for (let i = 0; i < 30; i++) {
+                let flake = document.createElement('div');
+                flake.className = 'snow-flake';
+                flake.innerHTML = '❄';
+                flake.style.left = Math.random() * 100 + 'vw';
+                flake.style.fontSize = (Math.random() * 10 + 10) + 'px';
+                flake.style.animationDuration = (Math.random() * 5 + 5) + 's';
+                flake.style.animationDelay = (Math.random() * 5) + 's';
+                document.body.appendChild(flake);
+            }
+        }
+        criarNeve();
+
+        // --- CONEXÃO SUPABASE ---
+        // COLE AQUI A SUA CHAVE PUBLISHABLE (aquela que você já tinha colocado antes):
         const SUPABASE_URL = "https://ughhpvdrsxpuouhqwakn.supabase.co";
-        const SUPABASE_ANON_KEY = "sb_publishable_nazmiw4UKp6QRBpsfMVowQ_neP7X7Th";
+        const SUPABASE_ANON_KEY = "COLE_AQUI_A_SUA_CHAVE_PUBLISHABLE_COMPLETA";
 
         let supabaseClient = null;
 
