@@ -441,6 +441,9 @@
                 carregarRifaDoBanco();
             }
         }
+
+        // Garante a atualização a cada 2 segundos, independentemente do tempo real falhar
+        setInterval(carregarRifaDoBanco, 2000);
     </script>
 </body>
 </html>
