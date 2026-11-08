@@ -19,7 +19,6 @@
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            /* Fundo verde elegante para contrastar com a rifa */
             background: linear-gradient(135deg, var(--natal-dark-green) 0%, var(--natal-green) 100%);
             color: #333;
             margin: 0;
@@ -31,7 +30,6 @@
             overflow-x: hidden;
         }
 
-        /* Efeito de neve sutil no fundo */
         .snow-flake {
             position: fixed;
             color: rgba(255, 255, 255, 0.4);
@@ -56,17 +54,16 @@
             box-sizing: border-box;
             margin-bottom: 20px;
             position: relative;
-            z-index: 10; /* Mantém a rifa acima da neve */
+            z-index: 10;
         }
         
-        /* Cabeçalho Temático */
         .header-banner {
             text-align: center;
             background: linear-gradient(to right, var(--natal-red), var(--natal-light-red));
             padding: 15px;
             border-radius: 12px;
             border-bottom: 3px solid var(--gold);
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
         h1 {
@@ -81,7 +78,6 @@
             color: var(--light-gold);
         }
         
-        /* Estatísticas rápidas */
         .stats-box {
             display: flex;
             justify-content: space-around;
@@ -97,6 +93,27 @@
         .stats-box span {
             color: var(--natal-green);
             font-size: 15px;
+        }
+
+        /* Botão do Relatório (Estilo Árvore de Natal) */
+        .btn-relatorio {
+            width: 100%;
+            background: linear-gradient(to right, var(--natal-dark-green), var(--natal-green));
+            color: white;
+            border: 2px solid var(--gold);
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            transition: all 0.2s ease;
+        }
+        .btn-relatorio:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+            border-color: #ffe082;
         }
         
         .vendedor-box {
@@ -155,18 +172,11 @@
         .numero-card:hover {
             border-color: var(--gold);
             transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.08);
         }
         .numero-card.vendido {
             background: #e8f5e9;
             border: 2px solid #2e7d32;
             color: #2e7d32;
-        }
-        .numero-card .x-mark {
-            font-size: 12px;
-            color: var(--natal-red);
-            font-weight: bold;
-            line-height: 1;
         }
         .numero-card .nome-mini {
             font-size: 8px;
@@ -178,7 +188,7 @@
             font-weight: 600;
         }
         
-        /* Modal Estilizado */
+        /* Modais */
         .modal {
             display: none;
             position: fixed;
@@ -191,10 +201,12 @@
         }
         .modal-content {
             background: white;
-            padding: 25px;
+            padding: 20px;
             border-radius: 16px;
-            width: 85%;
-            max-width: 330px;
+            width: 90%;
+            max-width: 350px;
+            max-height: 85vh;
+            overflow-y: auto;
             text-align: center;
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
             border-top: 5px solid var(--natal-red);
@@ -212,53 +224,45 @@
             border-radius: 8px;
             font-size: 15px;
             box-sizing: border-box;
-            outline: none;
-        }
-        .modal-content input:focus {
-            border-color: var(--natal-green);
         }
         .modal-buttons {
             display: flex;
             gap: 10px;
             margin-top: 15px;
         }
-        .btn-salvar { 
-            background: var(--natal-green); 
-            color: white; 
-            border: none; 
-            padding: 10px; 
-            border-radius: 8px; 
-            cursor: pointer; 
-            font-weight: bold; 
-            flex: 1;
+        .btn-salvar { background: var(--natal-green); color: white; border: none; padding: 10px; border-radius: 8px; cursor: pointer; font-weight: bold; flex: 1; }
+        .btn-cancelar { background: #e0e0e0; color: #444; border: none; padding: 10px; border-radius: 8px; cursor: pointer; font-weight: bold; flex: 1; }
+        .btn-liberar { background: #ffebee; color: var(--natal-red); border: 1px solid #ef9a9a; padding: 10px; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%; margin-top: 10px; }
+
+        /* Estilos do Relatório */
+        .bloco-vendedor {
+            background: #fdfbf7;
+            border-left: 5px solid var(--natal-green);
+            border-radius: 6px;
+            padding: 10px;
+            margin-bottom: 15px;
+            text-align: left;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
-        .btn-cancelar { 
-            background: #e0e0e0; 
-            color: #444; 
-            border: none; 
-            padding: 10px; 
-            border-radius: 8px; 
-            cursor: pointer; 
-            font-weight: bold;
-            flex: 1;
+        .bloco-vendedor h4 {
+            margin: 0 0 8px 0;
+            color: var(--natal-dark-red);
+            border-bottom: 1px dashed #ccc;
+            padding-bottom: 5px;
         }
-        .btn-liberar { 
-            background: #ffebee; 
-            color: var(--natal-red); 
-            border: 1px solid #ef9a9a; 
-            padding: 10px; 
-            border-radius: 8px; 
-            cursor: pointer; 
-            font-weight: bold; 
-            width: 100%; 
-            margin-top: 10px;
+        .item-venda {
+            font-size: 13px;
+            color: #333;
+            margin-bottom: 4px;
+        }
+        .item-venda strong {
+            color: var(--natal-green);
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <!-- Cabeçalho Temático -->
         <div class="header-banner">
             <h1>🎄 Natal Encantado 🎅</h1>
             <div class="subtitle">✨ Garanta sua cota da sorte ✨</div>
@@ -268,6 +272,9 @@
             <div>Vendidos: <span id="qtdVendidos">0</span>/100</div>
             <div>Disponíveis: <span id="qtdDisponiveis">100</span></div>
         </div>
+
+        <!-- Botão de Relatório Atualizado -->
+        <button class="btn-relatorio" onclick="abrirRelatorio()">🌲 Ver Relatório de Vendas 🌲</button>
 
         <div class="vendedor-box">
             <label>👤 Quem está registrando a venda?</label>
@@ -282,7 +289,6 @@
         <div class="grid-rifa" id="gridRifa"></div>
     </div>
 
-    <!-- Modal -->
     <div class="modal" id="modalVenda">
         <div class="modal-content">
             <h3 id="modalTitulo">Número</h3>
@@ -296,8 +302,15 @@
         </div>
     </div>
 
+    <div class="modal" id="modalRelatorio">
+        <div class="modal-content">
+            <h3>📊 Resumo das Vendas</h3>
+            <div id="conteudoRelatorio" style="margin-top: 15px;"></div>
+            <button class="btn-cancelar" style="width: 100%; margin-top: 15px;" onclick="fecharRelatorio()">Voltar para a Rifa</button>
+        </div>
+    </div>
+
     <script>
-        // --- ANIMAÇÃO DE NEVE ---
         function criarNeve() {
             for (let i = 0; i < 30; i++) {
                 let flake = document.createElement('div');
@@ -312,8 +325,6 @@
         }
         criarNeve();
 
-        // --- CONEXÃO SUPABASE ---
-        // COLE AQUI A SUA CHAVE PUBLISHABLE (aquela que você já tinha colocado antes):
         const SUPABASE_URL = "https://ughhpvdrsxpuouhqwakn.supabase.co";
         const SUPABASE_ANON_KEY = "sb_publishable_nazmiw4UKp6QRBpsfMVowQ_neP7X7Th";
 
@@ -322,7 +333,6 @@
         try {
             supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
             carregarRifaDoBanco();
-            escutarTempoReal();
         } catch(e) {
             console.error("Erro ao conectar no Supabase:", e);
         }
@@ -343,10 +353,8 @@
         async function carregarRifaDoBanco() {
             if (!supabaseClient) return;
             const { data, error } = await supabaseClient.from('rifa_natal').select('*');
-            if (error) {
-                console.error('Erro ao buscar rifa:', error);
-                return;
-            }
+            if (error) return;
+            
             dadosRifa = {};
             let totalVendidos = 0;
             if (data) {
@@ -358,23 +366,13 @@
             atualizarVisualGrid(totalVendidos);
         }
 
-        function escutarTempoReal() {
-            if (!supabaseClient) return;
-            supabaseClient
-                .channel('public:rifa_natal')
-                .on('postgres_changes', { event: '*', schema: 'public', table: 'rifa_natal' }, payload => {
-                    carregarRifaDoBanco();
-                })
-                .subscribe();
-        }
-
         function atualizarVisualGrid(totalVendidos = 0) {
             for (let i = 1; i <= 100; i++) {
                 const card = document.getElementById(`num-${i}`);
                 const info = dadosRifa[i];
                 if (info && info.comprador) {
                     card.className = 'numero-card vendido';
-                    card.innerHTML = `<span class="x-mark">✔</span><span style="font-size:11px; font-weight:bold;">${i}</span><span class="nome-mini">${info.comprador}</span>`;
+                    card.innerHTML = `<span style="font-size:11px; font-weight:bold; color:var(--natal-red);">✔</span><span style="font-size:12px; font-weight:bold;">${i}</span><span class="nome-mini">${info.comprador}</span>`;
                 } else {
                     card.className = 'numero-card';
                     card.innerHTML = `<span>${i}</span>`;
@@ -409,18 +407,13 @@
         async function salvarVenda() {
             const comprador = document.getElementById('inputComprador').value.trim();
             const vendedora = document.getElementById('vendedorAtual').value;
-            if (!comprador) {
-                alert('Digite o nome do comprador!');
-                return;
-            }
+            if (!comprador) { alert('Digite o nome do comprador!'); return; }
 
             const { error } = await supabaseClient
                 .from('rifa_natal')
                 .upsert({ numero: numeroSelecionado, comprador: comprador, vendedor: vendedora });
 
-            if (error) {
-                alert('Erro ao salvar: ' + error.message);
-            } else {
+            if (!error) {
                 fecharModal();
                 carregarRifaDoBanco();
             }
@@ -428,21 +421,52 @@
 
         async function liberarNumero() {
             if (!confirm(`Deseja realmente liberar o número ${numeroSelecionado}?`)) return;
-
-            const { error } = await supabaseClient
-                .from('rifa_natal')
-                .delete()
-                .eq('numero', numeroSelecionado);
-
-            if (error) {
-                alert('Erro ao liberar: ' + error.message);
-            } else {
+            const { error } = await supabaseClient.from('rifa_natal').delete().eq('numero', numeroSelecionado);
+            if (!error) {
                 fecharModal();
                 carregarRifaDoBanco();
             }
         }
 
-        // Garante a atualização a cada 2 segundos, independentemente do tempo real falhar
+        function abrirRelatorio() {
+            let relatorio = {};
+            
+            for (let i = 1; i <= 100; i++) {
+                const info = dadosRifa[i];
+                if (info && info.comprador) {
+                    const vend = info.vendedor || "Não informado";
+                    if (!relatorio[vend]) relatorio[vend] = [];
+                    relatorio[vend].push({ numero: i, comprador: info.comprador });
+                }
+            }
+
+            let html = "";
+            let temVendas = false;
+
+            for (const vend in relatorio) {
+                temVendas = true;
+                html += `<div class="bloco-vendedor">
+                            <h4>🧑‍💼 ${vend} (Total: ${relatorio[vend].length})</h4>`;
+                
+                relatorio[vend].forEach(venda => {
+                    html += `<div class="item-venda"><strong>Nº ${venda.numero}</strong> ➔ ${venda.comprador}</div>`;
+                });
+                
+                html += `</div>`;
+            }
+
+            if (!temVendas) {
+                html = "<p style='color:#666;'>Nenhum número foi vendido ainda.</p>";
+            }
+
+            document.getElementById('conteudoRelatorio').innerHTML = html;
+            document.getElementById('modalRelatorio').style.display = 'flex';
+        }
+
+        function fecharRelatorio() {
+            document.getElementById('modalRelatorio').style.display = 'none';
+        }
+
         setInterval(carregarRifaDoBanco, 2000);
     </script>
 </body>
